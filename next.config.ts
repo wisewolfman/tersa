@@ -15,10 +15,10 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       // Supabase storage (prod)
       ...(supabaseHostname
-        ? [{ protocol: 'https', hostname: supabaseHostname }]
+        ? [{ protocol: 'https' as const, hostname: supabaseHostname }]
         : []),
       // Supabase storage (local dev)
-      { protocol: 'http', hostname: '127.0.0.1' },
+      { protocol: 'http' as const, hostname: '127.0.0.1' },
     ],
   },
 
