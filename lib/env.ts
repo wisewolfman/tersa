@@ -47,8 +47,8 @@ export const env = createEnv({
   client: {
     NEXT_PUBLIC_TURNSTILE_SITE_KEY: z.string().min(1),
     NEXT_PUBLIC_DISABLE_TURNSTILE: z.string().optional(),
-    NEXT_PUBLIC_POSTHOG_KEY: z.string().min(1),
-    NEXT_PUBLIC_POSTHOG_HOST: z.string().url().min(1),
+    NEXT_PUBLIC_POSTHOG_KEY: z.string().optional(),
+    NEXT_PUBLIC_POSTHOG_HOST: z.string().url().optional(),
 
     // Supabase Integration
     NEXT_PUBLIC_SUPABASE_URL: z.string().url().min(1),

@@ -17,6 +17,11 @@ export const PostHogProvider = ({ children }: PostHogProviderProps) => {
       return;
     }
 
+    // Only initialize if PostHog key is configured
+    if (!env.NEXT_PUBLIC_POSTHOG_KEY) {
+      return;
+    }
+
     posthog.init(env.NEXT_PUBLIC_POSTHOG_KEY, {
       api_host: '/ingest',
       ui_host: 'https://us.posthog.com',
