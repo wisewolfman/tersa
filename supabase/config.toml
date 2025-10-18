@@ -145,7 +145,7 @@ token_verifications = 30
 [auth.captcha]
 enabled = true
 provider = "turnstile"
-secret = "env(TURNSTILE_SECRET)"
+secret = "yb8DttOasxFJNpxrVm/PUgTw8aPfSYk54V/UxSOF31o="
 
 [auth.email]
 # Allow/disallow new user signups via email to your project.

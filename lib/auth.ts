@@ -28,16 +28,27 @@ export const currentUserProfile = async () => {
   let userProfile = userProfiles.at(0);
 
   if (!userProfile && user.email) {
+    // Use onConflictDoNothing to handle race conditions
     const response = await database
       .insert(profile)
       .values({ id: user.id })
+      .onConflictDoNothing()
       .returning();
 
-    if (!response.length) {
-      throw new Error('Failed to create user profile');
+    if (response.length) {
+      userProfile = response[0];
+    } else {
+      // If insert was ignored due to conflict, fetch the existing profile
+      const existingProfiles = await database
+        .select()
+        .from(profile)
+        .where(eq(profile.id, user.id));
+      userProfile = existingProfiles.at(0);
     }
 
-    userProfile = response[0];
+    if (!userProfile) {
+      throw new Error('Failed to create or fetch user profile');
+    }
   }
 
   return userProfile;

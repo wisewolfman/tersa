@@ -29,6 +29,27 @@ export async function POST(req: Request) {
 
   try {
     switch (event.type) {
+      case 'checkout.session.completed': {
+        const session = event.data.object as Stripe.Checkout.Session;
+        const customerId = typeof session.customer === 'string' ? session.customer : session.customer?.id;
+        const subscriptionId = typeof session.subscription === 'string' ? session.subscription : session.subscription?.id;
+        
+        if (subscriptionId && session.metadata?.userId && customerId) {
+          // Fetch full subscription to get product info
+          const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+          const productId = subscription.items.data[0]?.price.product as string;
+          
+          await database
+            .update(profile)
+            .set({ 
+              customerId,
+              subscriptionId,
+              productId 
+            })
+            .where(eq(profile.id, session.metadata.userId));
+        }
+        break;
+      }
       case 'customer.subscription.created':
       case 'customer.subscription.updated': {
         const subscription = event.data.object as Stripe.Subscription;

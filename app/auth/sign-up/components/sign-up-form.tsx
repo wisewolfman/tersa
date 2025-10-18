@@ -14,10 +14,12 @@ export const SignUpForm = () => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const disableTurnstile = env.NEXT_PUBLIC_DISABLE_TURNSTILE === 'true';
   const [captchaToken, setCaptchaToken] = useState<string | undefined>(
-    undefined
+    disableTurnstile ? 'dev' : undefined
   );
-  const disabled = isLoading || !email || !password || !captchaToken;
+  const disabled =
+    isLoading || !email || !password || (!disableTurnstile && !captchaToken);
 
   const handleEmailSignUp: FormEventHandler<HTMLFormElement> = async (
     event
@@ -35,7 +37,7 @@ export const SignUpForm = () => {
             '/auth/confirm',
             window.location.origin
           ).toString(),
-          captchaToken,
+          captchaToken: disableTurnstile ? undefined : captchaToken,
         },
       });
 
@@ -83,12 +85,14 @@ export const SignUpForm = () => {
           </Button>
         </div>
       </form>
-      <div className="mt-4">
-        <Turnstile
-          siteKey={env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
-          onSuccess={setCaptchaToken}
-        />
-      </div>
+      {!disableTurnstile && (
+        <div className="mt-4">
+          <Turnstile
+            siteKey={env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+            onSuccess={setCaptchaToken}
+          />
+        </div>
+      )}
     </>
   );
 };

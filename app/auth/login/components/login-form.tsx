@@ -16,10 +16,12 @@ export const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const disableTurnstile = env.NEXT_PUBLIC_DISABLE_TURNSTILE === 'true';
   const [captchaToken, setCaptchaToken] = useState<string | undefined>(
-    undefined
+    disableTurnstile ? 'dev' : undefined
   );
-  const disabled = isLoading || !email || !password || !captchaToken;
+  const disabled =
+    isLoading || !email || !password || (!disableTurnstile && !captchaToken);
 
   const handleEmailLogin: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
@@ -31,7 +33,7 @@ export const LoginForm = () => {
         email,
         password,
         options: {
-          captchaToken,
+          captchaToken: disableTurnstile ? undefined : captchaToken,
         },
       });
 
@@ -87,12 +89,14 @@ export const LoginForm = () => {
           </Button>
         </div>
       </form>
-      <div className="mt-4">
-        <Turnstile
-          siteKey={env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
-          onSuccess={setCaptchaToken}
-        />
-      </div>
+      {!disableTurnstile && (
+        <div className="mt-4">
+          <Turnstile
+            siteKey={env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+            onSuccess={setCaptchaToken}
+          />
+        </div>
+      )}
     </>
   );
 };

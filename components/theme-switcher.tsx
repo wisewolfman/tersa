@@ -1,5 +1,6 @@
 'use client';
 
+import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -29,7 +30,26 @@ const themes = [
 ];
 
 export const ThemeSwitcher = () => {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <Button
+        size="icon"
+        variant="ghost"
+        aria-label="Select theme"
+        className="rounded-full"
+        disabled
+      >
+        <MonitorIcon size={16} />
+      </Button>
+    );
+  }
 
   return (
     <div>
@@ -43,7 +63,7 @@ export const ThemeSwitcher = () => {
           >
             {theme === 'light' && <SunIcon size={16} />}
             {theme === 'dark' && <MoonIcon size={16} />}
-            {theme === 'system' && <MonitorIcon size={16} />}
+            {(theme === 'system' || !theme) && <MonitorIcon size={16} />}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="min-w-32">

@@ -1644,8 +1644,8 @@ export const AzureIcon = (props: SVGProps<SVGSVGElement>) => (
         y2="134.647"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#114A8B" />
-        <stop offset="1" stop-color="#0669BC" />
+        <stop stopColor="#114A8B" />
+        <stop offset="1" stopColor="#0669BC" />
       </linearGradient>
       <linearGradient
         id="paint1_linear_5_10"
@@ -1655,11 +1655,11 @@ export const AzureIcon = (props: SVGProps<SVGSVGElement>) => (
         y2="71.3"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-opacity="0.3" />
-        <stop offset="0.071" stop-opacity="0.2" />
-        <stop offset="0.321" stop-opacity="0.1" />
-        <stop offset="0.623" stop-opacity="0.05" />
-        <stop offset="1" stop-opacity="0" />
+        <stop stopOpacity="0.3" />
+        <stop offset="0.071" stopOpacity="0.2" />
+        <stop offset="0.321" stopOpacity="0.1" />
+        <stop offset="0.623" stopOpacity="0.05" />
+        <stop offset="1" stopOpacity="0" />
       </linearGradient>
       <linearGradient
         id="paint2_linear_5_10"
@@ -1669,8 +1669,8 @@ export const AzureIcon = (props: SVGProps<SVGSVGElement>) => (
         y2="129.748"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#3CCBF4" />
-        <stop offset="1" stop-color="#2892DF" />
+        <stop stopColor="#3CCBF4" />
+        <stop offset="1" stopColor="#2892DF" />
       </linearGradient>
     </defs>
   </svg>
@@ -1739,8 +1739,8 @@ export const ZaiIcon = (props: SVGProps<SVGSVGElement>) => (
       d="M23.51 27.51H4.48999C2.27999 27.51 0.48999 25.72 0.48999 23.51V4.48999C0.48999 2.27999 2.27999 0.48999 4.48999 0.48999H23.52C25.73 0.48999 27.52 2.27999 27.52 4.48999V23.52C27.51 25.72 25.72 27.51 23.51 27.51Z"
       fill="#2D2D2D"
       stroke="white"
-      stroke-width="0.6317"
-      stroke-miterlimit="10"
+      strokeWidth="0.6317"
+      strokeMiterlimit="10"
     />
     <path
       d="M14.4699 6.10009L13.1699 7.95009C12.9699 8.24009 12.6299 8.42009 12.2699 8.42009H5.16993V6.09009C5.15993 6.10009 14.4699 6.10009 14.4699 6.10009Z"

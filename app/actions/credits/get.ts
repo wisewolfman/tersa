@@ -30,6 +30,14 @@ export const getCredits = async (): Promise<
       throw new Error('Customer ID not found');
     }
 
+    // Hobby plan gets fixed credits without usage metering
+    if (profile.productId === env.STRIPE_HOBBY_PRODUCT_ID) {
+      return {
+        credits: HOBBY_CREDITS,
+      };
+    }
+
+    // Pro plan uses metered billing
     const upcomingInvoice = await stripe.invoices.createPreview({
       subscription: profile.subscriptionId,
     });
@@ -47,7 +55,6 @@ export const getCredits = async (): Promise<
       throw new Error('Usage product line item price not found');
     }
 
-    // Hobby plan fallback
     let credits = HOBBY_CREDITS;
 
     if (profile.productId !== env.STRIPE_HOBBY_PRODUCT_ID) {

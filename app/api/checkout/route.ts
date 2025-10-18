@@ -6,7 +6,10 @@ import { type NextRequest, NextResponse } from 'next/server';
 import type Stripe from 'stripe';
 
 const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-const successUrl = `${protocol}://${env.VERCEL_PROJECT_PRODUCTION_URL}`;
+const host = process.env.NODE_ENV === 'production' 
+  ? env.VERCEL_PROJECT_PRODUCTION_URL 
+  : 'localhost:3000';
+const successUrl = `${protocol}://${host}/projects`;
 
 const getFrequencyPrice = async (
   productId: string,
@@ -66,25 +69,23 @@ export const GET = async (request: NextRequest) => {
   }
 
   if (productName === 'hobby') {
-    lineItems.push(
-      {
-        price: await getFrequencyPrice(env.STRIPE_HOBBY_PRODUCT_ID, 'month'),
-        quantity: 1,
-      },
-      {
-        price: await getFrequencyPrice(env.STRIPE_USAGE_PRODUCT_ID, 'month'),
-      }
-    );
+    lineItems.push({
+      price: await getFrequencyPrice(env.STRIPE_HOBBY_PRODUCT_ID, 'month'),
+      quantity: 1,
+    });
+    // TODO: Add usage metering when Stripe meter is configured
+    // {
+    //   price: await getFrequencyPrice(env.STRIPE_USAGE_PRODUCT_ID, 'month'),
+    // }
   } else if (productName === 'pro') {
-    lineItems.push(
-      {
-        price: await getFrequencyPrice(env.STRIPE_PRO_PRODUCT_ID, frequency),
-        quantity: 1,
-      },
-      {
-        price: await getFrequencyPrice(env.STRIPE_USAGE_PRODUCT_ID, frequency),
-      }
-    );
+    lineItems.push({
+      price: await getFrequencyPrice(env.STRIPE_PRO_PRODUCT_ID, frequency),
+      quantity: 1,
+    });
+    // TODO: Add usage metering when Stripe meter is configured
+    // {
+    //   price: await getFrequencyPrice(env.STRIPE_USAGE_PRODUCT_ID, frequency),
+    // }
   }
 
   try {
