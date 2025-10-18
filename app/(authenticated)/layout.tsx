@@ -1,6 +1,7 @@
 import { currentUser, currentUserProfile } from '@/lib/auth';
 import { env } from '@/lib/env';
 import { GatewayProvider } from '@/providers/gateway';
+// PostHog temporarily disabled (stub implementation)
 import { PostHogIdentifyProvider } from '@/providers/posthog-provider';
 import {
   type SubscriptionContextType,

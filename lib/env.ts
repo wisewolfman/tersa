@@ -47,8 +47,9 @@ export const env = createEnv({
   client: {
     NEXT_PUBLIC_TURNSTILE_SITE_KEY: z.string().min(1),
     NEXT_PUBLIC_DISABLE_TURNSTILE: z.string().optional(),
-    NEXT_PUBLIC_POSTHOG_KEY: z.string().optional(),
-    NEXT_PUBLIC_POSTHOG_HOST: z.string().url().optional(),
+    // PostHog temporarily disabled
+    // NEXT_PUBLIC_POSTHOG_KEY: z.string().optional(),
+    // NEXT_PUBLIC_POSTHOG_HOST: z.string().url().optional(),
 
     // Supabase Integration
     NEXT_PUBLIC_SUPABASE_URL: z.string().url().min(1),
@@ -82,8 +83,9 @@ export const env = createEnv({
     SUPABASE_AUTH_HOOK_SECRET: process.env.SUPABASE_AUTH_HOOK_SECRET,
     RUNWAYML_API_SECRET: process.env.RUNWAYML_API_SECRET,
     LUMA_API_KEY: process.env.LUMA_API_KEY,
-    NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
-    NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
+    // PostHog temporarily disabled
+    // NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
+    // NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
     HUME_API_KEY: process.env.HUME_API_KEY,
     LMNT_API_KEY: process.env.LMNT_API_KEY,
     BF_API_KEY: process.env.BF_API_KEY,

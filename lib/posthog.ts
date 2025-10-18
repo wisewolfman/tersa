@@ -1,17 +1,8 @@
-import { PostHog } from 'posthog-node';
-import { env } from './env';
+// PostHog temporarily disabled
+// import { PostHog } from 'posthog-node';
+// import { env } from './env';
 
 export const PostHogClient = () => {
-  // Return null if PostHog is not configured
-  if (!env.NEXT_PUBLIC_POSTHOG_KEY || !env.NEXT_PUBLIC_POSTHOG_HOST) {
-    return null;
-  }
-
-  const posthogClient = new PostHog(env.NEXT_PUBLIC_POSTHOG_KEY, {
-    host: env.NEXT_PUBLIC_POSTHOG_HOST,
-    flushAt: 1,
-    flushInterval: 0,
-  });
-
-  return posthogClient;
+  // PostHog is temporarily disabled
+  return null;
 };

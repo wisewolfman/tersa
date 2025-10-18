@@ -3,6 +3,7 @@ import './globals.css';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { mono, sans, serif } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
+// PostHog temporarily disabled (stub implementation)
 import { PostHogProvider } from '@/providers/posthog-provider';
 import { ThemeProvider } from '@/providers/theme';
 import { Analytics } from '@vercel/analytics/next';
