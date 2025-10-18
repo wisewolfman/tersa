@@ -1,20 +1,24 @@
 import type { NextConfig } from 'next';
 
+// Derive Supabase storage hostname from env so we don't hardcode project ID
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+let supabaseHostname: string | undefined;
+try {
+  if (supabaseUrl) {
+    supabaseHostname = new URL(supabaseUrl).hostname;
+  }
+} catch {}
+
 const nextConfig: NextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
-      // Supabase storage, production
-      {
-        protocol: 'https',
-        hostname: 'zszbbhofscgnnkvyonow.supabase.co',
-      },
-
-      // Supabase storage, development
-      {
-        protocol: 'http',
-        hostname: '127.0.0.1',
-      },
+      // Supabase storage (prod)
+      ...(supabaseHostname
+        ? [{ protocol: 'https', hostname: supabaseHostname }]
+        : []),
+      // Supabase storage (local dev)
+      { protocol: 'http', hostname: '127.0.0.1' },
     ],
   },
 
